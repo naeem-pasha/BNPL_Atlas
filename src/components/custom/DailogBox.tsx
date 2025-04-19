@@ -19,7 +19,7 @@ const Dailogbox = ({ customer }: dailogProps) => {
         <button
           className={` bg-green-50 hover:bg-green-100 text-green-600 px-3 py-1 rounded-md text-xs font-medium transition-colors`}
         >
-          View Form
+          View PO
         </button>
       </DialogTrigger>
       <DialogContent className="">
@@ -63,7 +63,7 @@ const Dailogbox = ({ customer }: dailogProps) => {
               <div>
                 <div className="flex gap-2 mb-2">
                   <span className="font-semibold">Order By:</span>
-                  <span>Megzap Bank Ltd. C/O Mr. ABC</span>
+                  <span>Meezan Bank Ltd. C/O Mr. ABC</span>
                 </div>
               </div>
             </div>

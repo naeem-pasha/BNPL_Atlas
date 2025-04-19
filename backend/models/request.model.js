@@ -40,6 +40,8 @@ const VendorSchema = new mongoose.Schema(
     isSendInvoiceToVendor: { type: Boolean },
     isUserAcceptDelivery: { type: Boolean },
     price_meezan: { type: Number },
+    isSendFinalInvoiceToBank: { type: Boolean },
+    isInvoiceRejectedByBank: { type: Boolean },
   },
   { timestamps: true }
 );

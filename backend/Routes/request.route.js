@@ -11,6 +11,8 @@ const {
   assignDate,
   userAcceptDelivery,
   recevieInvoiceFromBank,
+  sendToBankFinalInvoice,
+  rejectSalesRecipt,
 } = require("../controller/request.control");
 
 const route = Router();
@@ -38,5 +40,9 @@ route.put("/send-invoice-vendor/:id", recevieInvoiceFromBank);
 route.put("/assaign-date/:id", assignDate);
 
 route.put("/user-accept-delivery/:id", userAcceptDelivery);
+
+route.put("/send-to-bank-finalinvoice/:id", sendToBankFinalInvoice);
+
+route.put("/rejectsale-receipt/:id", rejectSalesRecipt);
 
 module.exports = route;

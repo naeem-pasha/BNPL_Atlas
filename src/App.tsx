@@ -31,6 +31,8 @@ import axios from "axios";
 import Dailogbox from "./components/custom/DailogBox";
 import DeliveryAuthorizationDialog from "./components/custom/DeliveryAuthorization";
 import Invoice from "./components/custom/Invoice";
+import FinalInvoice from "./components/custom/finalInvoice";
+import SalesReciptReject from "./components/custom/SalesReciptReject";
 
 export interface RequestData {
   City: string;
@@ -48,6 +50,7 @@ export interface RequestData {
   updatedAt: string;
   ownerShipTransfer: boolean;
   riskStatus: string;
+  status: string;
   finalAcceptence: boolean;
   isPublishedDeliveryLetter: boolean;
   isAcceptAutherized: boolean;
@@ -55,6 +58,8 @@ export interface RequestData {
   isSendInvoiceToVendor: boolean;
   isUserAcceptDelivery: boolean;
   price_meezan: number;
+  isSendFinalInvoiceToBank: boolean;
+  isInvoiceRejectedByBank: boolean;
   _id: string;
   __v: number;
 }
@@ -446,6 +451,7 @@ export function DialogDemo() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState("");
   const [isSuccess, setIsSuccess] = useState(false); // For managing success state
   const [errorMessage, setErrorMessage] = useState(""); // For managing error state
   const [isDialogOpen, setIsDialogOpen] = useState(false); // State to manage dialog visibility
@@ -462,6 +468,7 @@ export function DialogDemo() {
       name: name,
       email: email,
       phoneNo: phone,
+      address: address,
     };
 
     setLoading(true); // Set loading to true when the request is being made
@@ -479,6 +486,7 @@ export function DialogDemo() {
         setName("");
         setEmail("");
         setPhone("");
+        setAddress("");
       }
     } catch (error) {
       setIsSuccess(false);
@@ -545,6 +553,18 @@ export function DialogDemo() {
               type="number"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
+              className="col-span-3"
+            />
+          </div>
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="phone" className="text-right">
+              Address
+            </Label>
+            <Input
+              id="Address"
+              type="text"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
               className="col-span-3"
             />
           </div>
@@ -687,6 +707,9 @@ const CustomerRow: FC<CustomerRowProps> = ({ customer, getAllRequest }) => {
           }`}
         >
           {customer?.ownerShipTransfer && "Risk Transfer To Bank"}
+          {customer.isInvoiceRejectedByBank && (
+            <SalesReciptReject data={customer} />
+          )}
         </span>
       </td>
       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
@@ -707,6 +730,7 @@ const CustomerRow: FC<CustomerRowProps> = ({ customer, getAllRequest }) => {
           <DeliveryAuthorizationDialog data={customer} />
         )}
         {customer.isSendInvoiceToVendor && <Invoice data={customer} />}
+        {customer.isUserAcceptDelivery && <FinalInvoice data={customer} />}
       </td>
       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
         {customer.isUserAcceptDelivery && (

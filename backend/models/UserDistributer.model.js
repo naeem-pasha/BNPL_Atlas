@@ -9,6 +9,7 @@ const userSchema = new mongoose.Schema(
       required: true,
       match: [/^03\d{9}$/, "Invalid phone number format (e.g., 03001234567)"],
     },
+    address: { type: String },
   },
   { timestamps: true }
 );

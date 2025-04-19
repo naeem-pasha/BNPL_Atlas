@@ -145,7 +145,7 @@ const yearMarked = async (req, res) => {
 
 const createDistributer = async (req, res) => {
   try {
-    const { name, email, phoneNo } = req.body;
+    const { name, email, phoneNo, address } = req.body;
 
     const { data } = await axios.post(
       `${process.env.DISTRIBUTER_URL}/api/create-distributer`,
@@ -153,6 +153,7 @@ const createDistributer = async (req, res) => {
         name,
         email,
         phoneNo,
+        address,
       }
     );
 
@@ -168,6 +169,7 @@ const createDistributer = async (req, res) => {
       name,
       email,
       phoneNo,
+      address,
     });
 
     await newUserDistributer.save();
@@ -347,8 +349,24 @@ const assignDate = async (req, res) => {
       { deliveryDate }
     );
 
-    console.log(bankResponce);
+    if (!bankResponce.data.success) {
+      return res.status(500).json({
+        success: false,
+        message: "unable to update the bank.",
+      });
+    }
 
+    const userResponce = await axios.put(
+      `${process.env.USER_URL}/api/user/assaign-date/${id}`,
+      { deliveryDate }
+    );
+
+    if (!userResponce.data.success) {
+      return res.status(500).json({
+        success: false,
+        message: "unable to update the bank.",
+      });
+    }
     if (!bankResponce.data.success) {
       return res.status(500).json({
         success: false,
@@ -459,6 +477,93 @@ const recevieInvoiceFromBank = async (req, res) => {
   }
 };
 
+const sendToBankFinalInvoice = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    console.log(id);
+    const response = await axios.put(
+      `${process.env.MEEZAN_URL}/api/request/accept-to-vendor-finalinvoice/${id}`
+    );
+
+    if (response.data.success) {
+      const updatedVendor = await Vendor.findByIdAndUpdate(
+        id,
+        { isSendFinalInvoiceToBank: true },
+        { new: true }
+      );
+
+      if (!updatedVendor) {
+        return res.status(404).json({
+          success: false,
+          message: "Vendor not found.",
+        });
+      }
+
+      return res.status(200).json({
+        success: true,
+        message: "Final invoice sent to bank successfully.",
+        data: updatedVendor,
+      });
+    } else {
+      return res.status(400).json({
+        success: false,
+        message:
+          response.data.message || "Failed to send final invoice to bank.",
+      });
+    }
+  } catch (error) {
+    console.error("Error in sendToBankFinalInvoice:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error.",
+      error: error.message,
+    });
+  }
+};
+
+const rejectSalesRecipt = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    if (!id) {
+      return res.status(400).json({
+        success: false,
+        message: "Vendor ID is required.",
+      });
+    }
+
+    const result = await Vendor.findByIdAndUpdate(
+      id,
+      {
+        status: "invoice Rejected",
+        isInvoiceRejectedByBank: true,
+      },
+      { new: true }
+    );
+
+    if (!result) {
+      return res.status(404).json({
+        success: false,
+        message: "Vendor not found.",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "Sales receipt rejected successfully.",
+      data: result,
+    });
+  } catch (error) {
+    console.error("Error in rejectSalesRecipt:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error rejectSalesRecipt.",
+      error: error.message,
+    });
+  }
+};
+
 module.exports = {
   aproveByBank,
   getAllAproveByBank,
@@ -471,4 +576,6 @@ module.exports = {
   assignDate,
   userAcceptDelivery,
   recevieInvoiceFromBank,
+  sendToBankFinalInvoice,
+  rejectSalesRecipt,
 };
