@@ -21,7 +21,7 @@ app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
 app.use("/aprove", requestRoute);
 
 app.get("/api/health", (req, res) => {
-  res.json({ status: "OK", message: "Server is healthy" });
+  res.json({ status: "OK", message: "Server is healthy or working fine" });
 });
 
 // Error handling middleware

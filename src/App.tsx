@@ -33,6 +33,7 @@ import DeliveryAuthorizationDialog from "./components/custom/DeliveryAuthorizati
 import Invoice from "./components/custom/Invoice";
 import FinalInvoice from "./components/custom/finalInvoice";
 import SalesReciptReject from "./components/custom/SalesReciptReject";
+import MusawamahRejected from "./components/custom/PORejected";
 
 export interface RequestData {
   City: string;
@@ -49,6 +50,7 @@ export interface RequestData {
   phoneNo: string;
   updatedAt: string;
   ownerShipTransfer: boolean;
+  isAprovedByVendor: boolean;
   riskStatus: string;
   status: string;
   finalAcceptence: boolean;
@@ -60,6 +62,8 @@ export interface RequestData {
   price_meezan: number;
   isSendFinalInvoiceToBank: boolean;
   isInvoiceRejectedByBank: boolean;
+  isRejectPurchaseOrder: boolean;
+  isRejectMusawamah: boolean;
   _id: string;
   __v: number;
 }
@@ -731,6 +735,7 @@ const CustomerRow: FC<CustomerRowProps> = ({ customer, getAllRequest }) => {
         )}
         {customer.isSendInvoiceToVendor && <Invoice data={customer} />}
         {customer.isUserAcceptDelivery && <FinalInvoice data={customer} />}
+        {customer.isRejectMusawamah && <MusawamahRejected data={customer} />}
       </td>
       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
         {customer.isUserAcceptDelivery && (

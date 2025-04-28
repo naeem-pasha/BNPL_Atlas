@@ -564,6 +564,88 @@ const rejectSalesRecipt = async (req, res) => {
   }
 };
 
+const rejectPurchaseOrder = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const result = await Vendor.findByIdAndUpdate(
+      id,
+      { isRejectPurchaseOrder: true },
+      { new: true }
+    );
+
+    if (!result) {
+      return res.status(404).json({
+        success: false,
+        message: "Vendor not found.",
+      });
+    }
+
+    try {
+      await axios.put(
+        `${process.env.MEEZAN_URL}/api/request/reject-purchase-order/${id}`
+      );
+    } catch (axiosError) {
+      console.error(
+        "Failed to update the meezan bank external server:",
+        axiosError.message
+      );
+      return res.status(200).json({
+        success: true,
+        message:
+          "Vendor updated locally, but failed to notify external server.",
+        data: result,
+      });
+    }
+
+    // Step 4: Respond to client after successful local update and external request
+    return res.status(200).json({
+      success: true,
+      message: "Sales receipt rejected successfully.",
+      data: result,
+    });
+  } catch (error) {
+    // Catch-all error handler
+    console.error("Internal server error:", error.message);
+    return res.status(500).json({
+      success: false,
+      message: "An error occurred while rejecting the purchase order.",
+      error: error.message,
+    });
+  }
+};
+
+const rejectedMusawamah = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const result = await Vendor.findByIdAndUpdate(
+      id,
+      { isRejectMusawamah: true },
+      { new: true }
+    );
+
+    if (!result) {
+      return res.status(404).json({
+        success: false,
+        message: "Vendor not found.",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "Sales receipt rejected successfully.",
+      data: result,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Error in rejectMusawamah controller.",
+      error: error.message,
+    });
+  }
+};
+
 module.exports = {
   aproveByBank,
   getAllAproveByBank,
@@ -578,4 +660,6 @@ module.exports = {
   recevieInvoiceFromBank,
   sendToBankFinalInvoice,
   rejectSalesRecipt,
+  rejectPurchaseOrder,
+  rejectedMusawamah,
 };

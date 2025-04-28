@@ -13,6 +13,8 @@ const {
   recevieInvoiceFromBank,
   sendToBankFinalInvoice,
   rejectSalesRecipt,
+  rejectPurchaseOrder,
+  rejectedMusawamah,
 } = require("../controller/request.control");
 
 const route = Router();
@@ -44,5 +46,9 @@ route.put("/user-accept-delivery/:id", userAcceptDelivery);
 route.put("/send-to-bank-finalinvoice/:id", sendToBankFinalInvoice);
 
 route.put("/rejectsale-receipt/:id", rejectSalesRecipt);
+
+route.put("/reject-purchase-order/:id", rejectPurchaseOrder);
+
+route.put("/reject-musawamah/:id", rejectedMusawamah);
 
 module.exports = route;

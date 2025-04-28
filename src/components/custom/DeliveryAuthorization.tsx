@@ -71,10 +71,7 @@ export default function DeliveryAuthorizationDialog({
               <p className="text-gray-600">Karachi</p>
             </div>
             <div className="space-y-2">
-              <div className="flex gap-2">
-                <span className="font-semibold w-20">Attention:</span>
-                <span>Mr. {data.name}</span>
-              </div>
+              <div className="flex gap-2"></div>
               <div className="flex gap-2">
                 <span className="font-semibold w-20">From:</span>
                 <span>Meezan Bank Ltd.</span>
@@ -94,53 +91,17 @@ export default function DeliveryAuthorizationDialog({
             <span className="font-semibold">
               {" "}
               {data?.updatedAt.split("T")[0]}
+              {", "}
             </span>
-            , we hereby confirm its receipt and hereby authorize you as MBL's
-            agent to take possession of the Goods and deliver it to our customer
-            as per following details:
+            we hereby request you to please assign date for delivery of the
+            bike.
           </p>
         </div>
         {/* Main Table */}
-        <div className="overflow-x-auto">
-          <table className="w-full border-collapse mb-6">
-            <thead>
-              <tr className="bg-gray-50">
-                <th className="p-3 text-left border">Goods</th>
-                <th className="p-3 text-left border">Quantity</th>
-                <th className="p-3 text-left border">Engine No.</th>
-                <th className="p-3 text-left border">Chassis No.</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td className="p-3 border">
-                  {data.bikeVarient}, {data.bikeColor}
-                </td>
-                <td className="p-3 border">01 Unit</td>
-                <td className="p-3 border">{data.engineNo}</td>
-                <td className="p-3 border">{data.chasisNo}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
 
         {/* Buyer Information */}
         <div className="grid md:grid-cols-2 gap-4 mb-6">
           <div className="space-y-2">
-            <div className="flex gap-2">
-              <span className="font-semibold w-32">Buyer Name:</span>
-              <span>Mr. {data.name}</span>
-            </div>
-            <div className="flex gap-2">
-              <span className="font-semibold w-32">Contact #:</span>
-              <span>{data.phoneNo}</span>
-            </div>
-          </div>
-          <div className="space-y-2">
-            <div className="flex gap-2">
-              <span className="font-semibold w-32">Buyer CXUC Number:</span>
-              <span>{data.cnic}</span>
-            </div>
             <div className="flex gap-2">
               <span className="font-semibold w-32">Delivery Time Period:</span>
               <span>
@@ -166,7 +127,6 @@ export default function DeliveryAuthorizationDialog({
         {/* Footer Section */}
         <div className="mt-8 border-t-2 pt-4">
           <div className="text-right">
-            <p className="font-semibold">For and on behalf of</p>
             <p className="text-lg font-bold text-gray-700">
               Meezan Bank Limited
             </p>

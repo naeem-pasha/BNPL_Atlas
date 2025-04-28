@@ -1,6 +1,8 @@
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import MeezanLogo from "@/assets/meezanHeader.png";
 import { RequestData } from "@/App";
+import { Button } from "../ui/button";
+import axios from "axios";
 
 interface dailogProps {
   customer: RequestData;
@@ -12,6 +14,22 @@ const Dailogbox = ({ customer }: dailogProps) => {
   //   const url = URL.createObjectURL(blob);
   //   window.open(url);
   // };
+  const handleRejectedPo = async (id: string) => {
+    try {
+      const response = await axios.put(
+        `${import.meta.env.VITE_VENDOR_URL}/aprove/reject-purchase-order/${id}`
+      );
+
+      if (response.data?.success) {
+        // Reload the page if the rejection was successful
+        window.location.reload();
+      } else {
+        console.error("Failed to reject PO:", response.data?.message);
+      }
+    } catch (error) {
+      console.error("Error rejecting PO:", error);
+    }
+  };
 
   return (
     <Dialog>
@@ -39,7 +57,7 @@ const Dailogbox = ({ customer }: dailogProps) => {
               <div className="block gap-4">
                 <span className="font-semibold">Order Reference #</span>
                 <br />
-                <span>{customer._id}</span>
+                <span>{customer?._id?.split("-")[0]}</span>
               </div>
               <div className="flex gap-4">
                 <span className="font-semibold">Order Date:</span>
@@ -52,7 +70,7 @@ const Dailogbox = ({ customer }: dailogProps) => {
               <div>
                 <div className="flex gap-2 mb-2">
                   <span className="font-semibold">Order To:</span>
-                  <span>M/S. Honda Atlas</span>
+                  <span>Honda Atlas</span>
                 </div>
                 {/* <div className="ml-8">
                   <div>Address:</div>
@@ -63,7 +81,7 @@ const Dailogbox = ({ customer }: dailogProps) => {
               <div>
                 <div className="flex gap-2 mb-2">
                   <span className="font-semibold">Order By:</span>
-                  <span>Meezan Bank Ltd. C/O Mr. ABC</span>
+                  <span>Meezan Bank Ltd.</span>
                 </div>
               </div>
             </div>
@@ -99,6 +117,16 @@ const Dailogbox = ({ customer }: dailogProps) => {
               Please Notify the Bank immediately if this order cannot be
               completed on or before 6-Apr-19
             </div>
+
+            <Button
+              disabled={
+                customer.isAprovedByVendor || customer.isRejectPurchaseOrder
+              }
+              variant="destructive"
+              onClick={() => handleRejectedPo(customer._id)}
+            >
+              Rejected
+            </Button>
           </div>
         </div>
       </DialogContent>
