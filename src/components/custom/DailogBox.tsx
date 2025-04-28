@@ -115,7 +115,7 @@ const Dailogbox = ({ customer }: dailogProps) => {
             {/* Notification Section */}
             <div className="text-sm italic">
               Please Notify the Bank immediately if this order cannot be
-              completed on or before 6-Apr-19
+              completed as soon as possible.
             </div>
 
             <Button
