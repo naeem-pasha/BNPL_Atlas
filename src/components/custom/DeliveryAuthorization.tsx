@@ -86,8 +86,8 @@ export default function DeliveryAuthorizationDialog({
             Re: Authorization to Deliver the Goods
           </h3>
           <p className="text-gray-600 mb-4">
-            With reference to the Sales Receipt Number {data?._id.split("-")[0]}
-            , dated
+            With reference to the Sales Receipt of the Purchase order, Number{" "}
+            {data?._id.split("-")[0]}, dated
             <span className="font-semibold">
               {" "}
               {data?.updatedAt.split("T")[0]}
