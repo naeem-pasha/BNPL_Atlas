@@ -43,6 +43,7 @@ export default function DeliveryAuthorizationDialog({
     }
   };
 
+  console.log("🚀 ~ Assignment:", Assignment);
   return (
     <Dialog>
       {/* Trigger Button */}
@@ -83,7 +84,7 @@ export default function DeliveryAuthorizationDialog({
         {/* Subject Section */}
         <div className="mb-6">
           <h3 className="text-lg font-bold mb-4 border-b-2 border-dashed pb-2">
-            Assaigment of Delivery Date
+            Assignment of Delivery Date
           </h3>
           <p className="text-gray-600 mb-4">
             With reference to the Sales Receipt of the Purchase order, Number{" "}
