@@ -24,9 +24,11 @@ const Invoice: React.FC<ViewDetailProps> = ({ data }) => {
             {/* To Section */}
             <div className="mb-4">
               <p className="mb-2">
-                To Mr. <span className="font-bold">{data?.name}</span>
+                To{" "}
+                <span className="font-bold">
+                  <p>Honda Atlas</p>
+                </span>
               </p>
-              <p>Honda Atlas</p>
             </div>
 
             {/* Main Content */}
