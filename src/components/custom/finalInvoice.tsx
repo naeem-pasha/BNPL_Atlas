@@ -45,19 +45,16 @@ export default function FinalInvoice({ data }: FinalInvoiceProps) {
               Dear <span className="text-red-600 font-bold">MBL</span>,
             </p>
             <p className="mb-4">
-              With reference to the sale confirmation ref #{" "}
+              With reference to the intimation of sale receipt ref #{" "}
               {data._id.split("-")[0]}, we hereby confirm that we have given the
-              possession of item (s) referred in sale confirmation to customer
-              Ms/Mr {data.name}.
+              possession of item(s) to customer Ms/Mr {data.name}.
             </p>
-            <p className="mb-2">ABC Pvt. Ltd (Merchant)</p>
+            <p className="mb-2">Atlas Honda (Merchant)</p>
           </div>
 
           <div className="border border-gray-800">
             <div className="border-b border-gray-800 text-center py-2 bg-gray-100">
-              <p className="font-bold text-lg">
-                Invoice (Merchant to <span className="text-red-600">MBL</span>)
-              </p>
+              <p className="font-bold text-lg">Invoice</p>
             </div>
 
             <div className="grid grid-cols-2 border-b border-gray-800">
