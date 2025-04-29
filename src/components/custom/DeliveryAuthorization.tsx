@@ -43,7 +43,6 @@ export default function DeliveryAuthorizationDialog({
     }
   };
 
-  console.log("🚀 ~ Assignment:", Assignment);
   return (
     <Dialog>
       {/* Trigger Button */}
