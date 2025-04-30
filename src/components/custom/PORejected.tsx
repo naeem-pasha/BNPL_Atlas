@@ -26,7 +26,7 @@ export default function MusawamahRejected({
         <p>
           This is to inform you that our financing customer has decided not to
           proceed with the purchase of the vehicle. Accordingly, the sale
-          transaction between MBL and you, dated, pertaining to the vehicle with
+          transaction between MBL and you, pertaining to the vehicle with
           chassis number {data.engineNo}, stands cancelled.
         </p>
         <p>

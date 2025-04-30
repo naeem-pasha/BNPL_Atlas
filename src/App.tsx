@@ -679,7 +679,9 @@ const CustomerRow: FC<CustomerRowProps> = ({ customer, getAllRequest }) => {
           onChange={(e) => setEngineNo(e.target.value)}
           readOnly={approved || !!customer.engineNo}
           placeholder="Enter Engine No"
-          disabled={!!customer.chasisNo && true}
+          disabled={
+            (!!customer.chasisNo && true) || customer.isRejectPurchaseOrder
+          }
         />
       </td>
       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
@@ -690,13 +692,15 @@ const CustomerRow: FC<CustomerRowProps> = ({ customer, getAllRequest }) => {
           onChange={(e) => setChasisNo(e.target.value)}
           readOnly={approved || !!customer.chasisNo}
           placeholder="Enter Chassis No"
-          disabled={!!customer.chasisNo && true}
+          disabled={
+            (!!customer.chasisNo && true) || customer.isRejectPurchaseOrder
+          }
         />
       </td>
       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
         <DistributerSelect
           onSelect={(value) => setDistributer(value)}
-          disabled={approved}
+          disabled={approved || customer.isRejectPurchaseOrder}
           distributerNo={customer?.distributerNo}
         />
       </td>

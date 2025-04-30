@@ -19,15 +19,14 @@ const SalesReciptReject: React.FC<ViewDetailProps> = ({ data }) => {
           {/* Header */}
           <div className="text-center border-b border-gray-300 pb-2 mb-4">
             <h2 className="text-xl font-bold">
-              Confirmation of sales cancellation (MBL to Merchant)
+              Confirmation of sale cancellation
             </h2>
           </div>
 
           {/* Document Header Info */}
           <div className="flex justify-between mb-6">
             <div>
-              <p className="mb-1">To, ABC pvt. Ltd.</p>
-              <p>Reference (Sale Receipt #) {data._id.split("-")[0]}</p>
+              <p className="mb-1">To, Atlas Honda</p>
             </div>
             <div>
               <p>{data.updatedAt.split("T")[0]}</p>
@@ -41,8 +40,7 @@ const SalesReciptReject: React.FC<ViewDetailProps> = ({ data }) => {
               confirmation via Sale Receipt (reference #{" "}
               {data?._id.split("-")[0]}), We hereby cancel the sale as per MOU{" "}
               {"{XXXX}"} signed on DATE {data?.createdAt.split("T")[0]}. Detail
-              of item(s) is(are) given below. Please take physical possession of
-              the below assets from MBL agent Mr/ MS {data?.name} and confirm.
+              of item(s) is(are) given below.
             </p>
           </div>
 
@@ -90,7 +88,7 @@ const SalesReciptReject: React.FC<ViewDetailProps> = ({ data }) => {
 
           {/* Footer */}
           <div className="mt-4">
-            <p>From, Meezan Bank Ltd.</p>
+            <p>From Meezan Bank Ltd.</p>
           </div>
         </div>
 

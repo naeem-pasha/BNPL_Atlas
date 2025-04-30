@@ -42,7 +42,7 @@ const VendorSchema = new mongoose.Schema(
     price_meezan: { type: Number },
     isSendFinalInvoiceToBank: { type: Boolean },
     isInvoiceRejectedByBank: { type: Boolean },
-    isRejectPurchaseOrder: { type: Boolean },
+    isRejectPurchaseOrder: { type: Boolean, default: false },
     isRejectMusawamah: { type: Boolean },
   },
   { timestamps: true }

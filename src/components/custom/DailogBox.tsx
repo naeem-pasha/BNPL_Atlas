@@ -31,6 +31,7 @@ const Dailogbox = ({ customer }: dailogProps) => {
     }
   };
 
+  console.log("customer", customer.isRejectPurchaseOrder);
   return (
     <Dialog>
       <DialogTrigger>
@@ -46,7 +47,7 @@ const Dailogbox = ({ customer }: dailogProps) => {
             <div className="w-32 h-full bg-gray-200">
               <img src={MeezanLogo} alt="meezan logo" />
             </div>
-            <h1 className="text-2xl font-bold">Purchase Order</h1>
+            <h1 className="text-2xl font-bold">Intention to purchase</h1>
           </div>
         </header>
         {/* <!-- Main Form Container --> */}
@@ -125,7 +126,7 @@ const Dailogbox = ({ customer }: dailogProps) => {
               variant="destructive"
               onClick={() => handleRejectedPo(customer._id)}
             >
-              Rejected
+              {customer.isRejectPurchaseOrder ? "Rejected" : "Reject PO"}
             </Button>
           </div>
         </div>
